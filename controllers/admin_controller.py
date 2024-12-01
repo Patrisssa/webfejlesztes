@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from .models.books_model import db, Book
+from models.books_model import db, Book
 from datetime import datetime
 
 admin_bp = Blueprint('admin', __name__, template_folder='templates')

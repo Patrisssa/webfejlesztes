@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard - Book Management</h1>
+
+    <h2>Add New Book</h2>
+    <form action="/admin" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="author">Author:</label><br>
+        <input type="text" id="author" name="author" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <label for="published_date">Published Date:</label><br>
+        <input type="date" id="published_date" name="published_date" required><br><br>
+
+        <input type="submit" value="Add Book">
+    </form>
+
+    <h2>Existing Books</h2>
+    <ul>
+        {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }} - {{ book.published_date.strftime('%Y-%m-%d') }}
+            <a href="{{ url_for('admin.edit_book', id=book.id) }}">Edit</a>
+            <a href="{{ url_for('admin.delete_book', id=book.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
