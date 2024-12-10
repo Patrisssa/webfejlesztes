@@ -1,0 +1,19 @@
+.admin-users-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.admin-users-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-users-btn:hover {
+    background-color: #45a049;
+}
