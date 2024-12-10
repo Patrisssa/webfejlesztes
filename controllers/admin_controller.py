@@ -37,7 +37,7 @@ def edit_book(id):
         db.session.commit()
         return redirect(url_for('admin.admin_dashboard'))
 
-    return render_template('edit_book.html', book=book)
+    return render_template('edit.html', book=book)
 
 
 @admin_bp.route('/admin/delete/<int:id>', methods=['GET'])
