@@ -3,35 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Felület</title>
 </head>
-<body>
-    <h1>Admin Dashboard - Book Management</h1>
+<body class="admin-body">
+    <div class="admin-users-button">
+        <a href="{{ url_for('admin.users_management') }}" class="admin-users-link">
+            <button class="admin-users-btn">Felhasználók kezelése</button>
+        </a>
+    </div>
 
-    <h2>Add New Book</h2>
-    <form action="/admin" method="POST">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" required><br><br>
+    <h1 class="admin-title">Könyvek kezelése</h1>
 
-        <label for="author">Author:</label><br>
-        <input type="text" id="author" name="author" required><br><br>
+    <h2 class="admin-subtitle">Könyv hozzáadása</h2>
+    <form class="admin-form" action="/admin" method="POST">
+        <label class="admin-label" for="title">Cím:</label><br>
+        <input class="admin-input" type="text" id="title" name="title" required><br><br>
 
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description"></textarea><br><br>
+        <label class="admin-label" for="author">Szerző:</label><br>
+        <input class="admin-input" type="text" id="author" name="author" required><br><br>
 
-        <label for="published_date">Published Date:</label><br>
-        <input type="date" id="published_date" name="published_date" required><br><br>
+        <label class="admin-label" for="description">Leírás:</label><br>
+        <textarea class="admin-textarea" id="description" name="description"></textarea><br><br>
 
-        <input type="submit" value="Add Book">
+        <label class="admin-label" for="published_date">Kiadás dátuma:</label><br>
+        <input class="admin-input" type="date" id="published_date" name="published_date" required><br><br>
+
+        <input class="admin-submit" type="submit" value="Hozzáadás">
     </form>
 
-    <h2>Existing Books</h2>
-    <ul>
+    <h2 class="admin-subtitle">Létező könyvek:</h2>
+    <ul class="admin-book-list">
         {% for book in books %}
-        <li>
-            <strong>{{ book.title }}</strong> by {{ book.author }} - {{ book.published_date.strftime('%Y-%m-%d') }}
-            <a href="{{ url_for('admin.edit_book', id=book.id) }}">Edit</a>
-            <a href="{{ url_for('admin.delete_book', id=book.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+        <li class="admin-book-item">
+            <strong class="admin-book-title">{{ book.title }}</strong> 
+            by <span class="admin-book-author">{{ book.author }}</span> - 
+            <span class="admin-book-date">{{ book.published_date.strftime('%Y-%m-%d') }}</span>
+            <a class="admin-edit-link" href="{{ url_for('admin.edit_book', id=book.id) }}">Szerkesztés</a>
+            <a class="admin-delete-link" href="{{ url_for('admin.delete_book', id=book.id) }}" onclick="return confirm('Biztosan törölni szeretnéd?')">Törlés</a>
         </li>
         {% endfor %}
     </ul>

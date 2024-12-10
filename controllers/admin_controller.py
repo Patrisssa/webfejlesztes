@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from models.books_model import db, Book
+from models.users_model import db, User
 from datetime import datetime
 
 admin_bp = Blueprint('admin', __name__, template_folder='templates')
 
+# Admin Dashboard (könyvek kezelése)
 @admin_bp.route('/admin', methods=['GET', 'POST'])
 def admin_dashboard():
     if request.method == 'POST':
@@ -25,7 +27,7 @@ def admin_dashboard():
     books = Book.query.all()
     return render_template('admin.html', books=books)
 
-
+# Könyv szerkesztése
 @admin_bp.route('/admin/edit/<int:id>', methods=['GET', 'POST'])
 def edit_book(id):
     book = Book.query.get(id)
@@ -39,7 +41,7 @@ def edit_book(id):
 
     return render_template('edit.html', book=book)
 
-
+# Könyv törlése
 @admin_bp.route('/admin/delete/<int:id>', methods=['GET'])
 def delete_book(id):
     book = Book.query.get(id)
@@ -47,3 +49,18 @@ def delete_book(id):
         db.session.delete(book)
         db.session.commit()
     return redirect(url_for('admin.admin_dashboard'))
+
+# Felhasználók kezelése
+@admin_bp.route('/admin/users', methods=['GET'])
+def users_management():
+    users = User.query.all()  # Lekérjük az összes felhasználót
+    return render_template('users.html', users=users)
+
+# Felhasználó törlése
+@admin_bp.route('/admin/delete_user/<int:id>', methods=['GET'])
+def delete_user(id):
+    user = User.query.get(id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    return redirect(url_for('admin.users_management'))
