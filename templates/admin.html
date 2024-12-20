@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Felület</title>
+    <link rel="stylesheet" href="static/css/admin_style.css"> <!-- CSS link -->
 </head>
 <body class="admin-body">
-    <div class="admin-users-button">
-        <a href="{{ url_for('admin.users_management') }}" class="admin-users-link">
-            <button class="admin-users-btn">Felhasználók kezelése</button>
-        </a>
+    
+    <div class="navbar">
+        <!-- Bal oldali menü -->
+        <a href="/" class="navbar-link">Könyvek</a>
+
+        <!-- Jobb oldali menü (dinamikusan változik) -->
+        {% if not current_user.is_authenticated %}
+            <!-- Ha nincs bejelentkezve -->
+            <a href="/login" class="navbar-link">Bejelentkezés</a>
+            <a href="/register" class="navbar-link">Regisztráció</a>
+        {% elif current_user.is_admin %}
+            <!-- Ha be van jelentkezve és admin -->
+            <a href="/admin" class="navbar-link">Admin</a>
+            <a href="/profile" class="navbar-link">Profil</a>
+            <a href="/logout" class="navbar-link">Kijelentkezés</a>
+        {% else %}
+            <!-- Ha be van jelentkezve, de nem admin -->
+            <a href="/profile" class="navbar-link">Profil</a>
+            <a href="/logout" class="navbar-link">Kijelentkezés</a>
+        {% endif %}
     </div>
 
     <h1 class="admin-title">Könyvek kezelése</h1>

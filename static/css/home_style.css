@@ -1,0 +1,118 @@
+/* Alap stílusok */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #ddd6cc;
+    color: #333;
+    margin: 0;
+    padding: 80px 0 0 0;
+}
+
+/* Fejléc */
+h1 {
+    text-align: center;
+    color: #6b4521;
+    margin-top: 20px;
+    font-size: 2.5em;
+}
+
+/* Lista konténer */
+ul {
+    list-style: none; /* Távolítsd el az alapértelmezett pontokat */
+    padding: 0;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Lista elemek */
+li {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center; /* Középre igazítjuk az összes szöveget */
+}
+
+li + li {
+    margin-top: 20px; /* Térköz a li elemek között */
+}
+
+li:last-child {
+    border-bottom: none; /* Az utolsó elem alján ne legyen vonal */
+}
+
+/* Könyv címe (Nagy betűkkel és középre igazítva) */
+strong {
+    font-size: 2em;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+    text-transform: uppercase; /* Nagybetűssé alakítja */
+}
+
+/* Szerző (Kisebb betűkkel) */
+span {
+    font-size: 1.1em;
+    font-weight: normal;
+    color: #555;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Kiadási dátum */
+em {
+    font-size: 1em;
+    color: #888;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Leírás */
+p.description {
+    font-size: 1em;
+    color: #333;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Mobilbarát beállítások */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        padding: 15px;
+    }
+}
+
+.navbar {
+    background-color: #33271e; /* A kívánt szín */
+    height: 40px; /* Csík magassága */
+    display: flex;
+    justify-content: center; /* Középre igazítja a tartalmat */
+    align-items: center; /* Függőlegesen középre igazítja */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Könyvek link */
+.navbar a {
+    color: white;
+    font-size: 1.2em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline; /* Ha fölé viszik, aláhúzódik */
+}

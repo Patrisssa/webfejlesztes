@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="static/css/home_style.css">
 </head>
 <body>
-    <h1>Könyvek</h1>
+    <div class="navbar">
+        <a href="/">Könyvek</a> <!-- Kattintható "Könyvek" felirat -->
+    </div>
+
+    <h1>Kapható könyvek</h1>
     <ul>
         {% for book in books %}
             <li>
-                <strong>{{ book.title }}</strong> - {{ book.author }}<br>
-                <em>{{ book.published_date }}</em><br>
-                {{ book.description }}
+                <strong>{{ book.title }}</strong> <!-- Könyv címe -->
+                <span>{{ book.author }}</span> <!-- Szerző -->
+                <em>{{ book.published_date }}</em> <!-- Kiadási dátum -->
+                <p class="description">{{ book.description }}</p>
             </li>
         {% endfor %}
     </ul>

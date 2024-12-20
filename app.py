@@ -1,6 +1,5 @@
 from flask import Flask
-from models.books_model import db
-from models.users_model import db
+from models import db
 from controllers.home_controller import home_bp
 from controllers.admin_controller import admin_bp
 
