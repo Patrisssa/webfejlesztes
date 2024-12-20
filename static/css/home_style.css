@@ -5,7 +5,7 @@ body {
     background-color: #ddd6cc;
     color: #333;
     margin: 0;
-    padding: 80px 0 0 0;
+    padding: 0;
 }
 
 /* Fejléc */
@@ -93,26 +93,33 @@ p.description {
 }
 
 .navbar {
-    background-color: #33271e; /* A kívánt szín */
-    height: 40px; /* Csík magassága */
     display: flex;
-    justify-content: center; /* Középre igazítja a tartalmat */
-    align-items: center; /* Függőlegesen középre igazítja */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
+    justify-content: space-between; /* Balra és jobbra igazítás */
+    align-items: center; /* Vertikális középre igazítás */
+    background-color: #fff;
+    padding: 5px 20px;
 }
 
-/* Könyvek link */
-.navbar a {
-    color: white;
-    font-size: 1.2em;
+.navbar-left {
+    display: flex;
+    gap: 15px; /* Távolság a bal oldali linkek között */
+}
+
+.navbar-right {
+    display: flex;
+    gap: 15px; /* Távolság a jobb oldali linkek között */
+}
+
+.navbar-link {
     text-decoration: none;
+    color: #6b4521;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: color 0.3s;
     font-weight: bold;
 }
 
-.navbar a:hover {
-    text-decoration: underline; /* Ha fölé viszik, aláhúzódik */
+.navbar-link:hover {
+    color: #0056b3;
 }
+
