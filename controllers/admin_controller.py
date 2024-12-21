@@ -1,13 +1,24 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import abort, Blueprint, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
+from flask_login import current_user
 from models.books_model import db, Book
 from models.users_model import db, User
 from datetime import datetime
 
 admin_bp = Blueprint('admin', __name__, template_folder='templates')
 
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or not current_user.is_admin:
+            abort(403)
+        return f(*args, **kwargs)
+    return decorated_function
+
 # Admin Dashboard (könyvek kezelése)
 @admin_bp.route('/admin', methods=['GET', 'POST'])
+@admin_required
 def admin_dashboard():
     if request.method == 'POST':
         title = request.form.get('title')
@@ -29,6 +40,7 @@ def admin_dashboard():
 
 # Könyv szerkesztése
 @admin_bp.route('/admin/edit/<int:id>', methods=['GET', 'POST'])
+@admin_required
 def edit_book(id):
     book = Book.query.get(id)
     if request.method == 'POST':
@@ -43,6 +55,7 @@ def edit_book(id):
 
 # Könyv törlése
 @admin_bp.route('/admin/delete/<int:id>', methods=['GET'])
+@admin_required
 def delete_book(id):
     book = Book.query.get(id)
     if book:
@@ -52,12 +65,14 @@ def delete_book(id):
 
 # Felhasználók kezelése
 @admin_bp.route('/admin/users', methods=['GET'])
+@admin_required
 def users_management():
     users = User.query.all()  # Lekérjük az összes felhasználót
     return render_template('users.html', users=users)
 
 # Felhasználó törlése
 @admin_bp.route('/admin/delete_user/<int:id>', methods=['GET'])
+@admin_required
 def delete_user(id):
     user = User.query.get(id)
     if user:

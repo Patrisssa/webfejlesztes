@@ -1,8 +1,8 @@
 /* Alap stílusok */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    background-color: #ddd6cc;
+    background-color: #f4f8fb; /* Világoskék háttér */
     color: #333;
     margin: 0;
     padding: 0;
@@ -11,9 +11,10 @@ body {
 /* Fejléc */
 h1 {
     text-align: center;
-    color: #6b4521;
-    margin-top: 20px;
-    font-size: 2.5em;
+    color: #5c3c92; /* Lila */
+    margin-top: 30px;
+    font-size: 3em;
+    font-weight: bold;
 }
 
 /* Lista konténer */
@@ -21,105 +22,103 @@ ul {
     list-style: none; /* Távolítsd el az alapértelmezett pontokat */
     padding: 0;
     max-width: 800px;
-    margin: 20px auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    margin: 30px auto; /* Középre igazítás */
 }
 
 /* Lista elemek */
 li {
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center; /* Középre igazítjuk az összes szöveget */
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Lágy árnyék */
+    text-align: left;
+    margin-bottom: 20px; /* Távolság az elemek között */
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    border-left: 8px solid #4a90e2; /* Kék csík a bal oldalon */
 }
 
-li + li {
-    margin-top: 20px; /* Térköz a li elemek között */
+li:hover {
+    transform: translateY(-5px); /* Finom lebegés effekt */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2); /* Erősebb árnyék */
+    background-color: #e8f0fe; /* Világoskék háttér hover esetén */
 }
 
-li:last-child {
-    border-bottom: none; /* Az utolsó elem alján ne legyen vonal */
-}
-
-/* Könyv címe (Nagy betűkkel és középre igazítva) */
+/* Könyv címe */
 strong {
-    font-size: 2em;
-    color: #333;
+    font-size: 1.8em;
+    color: #5c3c92; /* Lila */
     display: block;
-    margin-bottom: 10px;
-    text-transform: uppercase; /* Nagybetűssé alakítja */
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
-/* Szerző (Kisebb betűkkel) */
+/* Szerző */
 span {
-    font-size: 1.1em;
-    font-weight: normal;
-    color: #555;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #4a90e2; /* Kék */
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 /* Kiadási dátum */
 em {
     font-size: 1em;
-    color: #888;
+    color: #7f8c8d; /* Semleges szürke */
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 /* Leírás */
 p.description {
     font-size: 1em;
-    color: #333;
-    max-width: 600px;
-    margin: 0 auto;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* Navigációs sáv */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4a90e2; /* Kék */
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-left,
+.navbar-right {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: #ffffff; /* Fehér szöveg */
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #5c3c92; /* Lila háttér */
+}
+
+.navbar-link:hover {
+    background-color: #7f8c8d; /* Semleges szürke */
+    color: #ffffff;
 }
 
 /* Mobilbarát beállítások */
 @media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-
-    ul {
-        padding: 0;
+    h1 {
+        font-size: 2em;
     }
 
     li {
         padding: 15px;
     }
 }
-
-.navbar {
-    display: flex;
-    justify-content: space-between; /* Balra és jobbra igazítás */
-    align-items: center; /* Vertikális középre igazítás */
-    background-color: #fff;
-    padding: 5px 20px;
-}
-
-.navbar-left {
-    display: flex;
-    gap: 15px; /* Távolság a bal oldali linkek között */
-}
-
-.navbar-right {
-    display: flex;
-    gap: 15px; /* Távolság a jobb oldali linkek között */
-}
-
-.navbar-link {
-    text-decoration: none;
-    color: #6b4521;
-    font-weight: 500;
-    padding: 5px 10px;
-    transition: color 0.3s;
-    font-weight: bold;
-}
-
-.navbar-link:hover {
-    color: #0056b3;
-}
-
