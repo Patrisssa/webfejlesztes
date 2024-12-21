@@ -8,22 +8,11 @@
 <body>
 
     <div class="navbar">
-        <!-- Bal oldali menü -->
         <div class="navbar-left">
             <a href="/" class="navbar-link">Könyvek</a>
-            {% if current_user.is_authenticated and current_user.is_admin %}
-                <a href="/admin" class="navbar-link">Admin</a>
-            {% endif %}
         </div>
-        <!-- Jobb oldali menü -->
         <div class="navbar-right">
-            {% if not current_user.is_authenticated %}
-                <a href="/register" class="navbar-link">Regisztráció</a>
-                <a href="/login" class="navbar-link">Bejelentkezés</a>
-            {% else %}
-                <a href="/profile" class="navbar-link">Profil</a>
-                <a href="/logout" class="navbar-link">Kijelentkezés</a>
-            {% endif %}
+            <a href="/admin" class="navbar-link">Könyvek kezelése</a>
         </div>
     </div>
 
