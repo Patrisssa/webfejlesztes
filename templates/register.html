@@ -26,145 +26,99 @@
     <form action="/register" method="POST" id="registerForm">
         <label for="last_name">Vezetéknév:</label>
         <input type="text" id="last_name" name="last_name" pattern="^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+([ -]?[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$" required>
-        <span class="error">{{ errors.get('last_name', '') }}</span><br><br>
+        <span id="last_name_error" class="error"></span><br>
     
         <label for="first_name">Keresztnév:</label>
         <input type="text" id="first_name" name="first_name" pattern="^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+( [A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$" required>
-        <span class="error">{{ errors.get('first_name', '') }}</span><br><br>
+        <span id="first_name_error" class="error"></span><br>
     
         <label for="username">Felhasználónév:</label>
         <input type="text" id="username" name="username" required>
-        <span class="error">{{ errors.get('username', '') }}</span><br><br>
-
+        <span id="username_error" class="error">{{ errors.get('username', '') }}</span><br>
+    
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
-        <span class="error">{{ errors.get('email', '') }}</span><br>
+        <span id="email_error" class="error">{{ errors.get('email', '') }}</span><br>
+
     
         <label for="password">Jelszó:</label>
         <input type="password" id="password" name="password" required>
-        <span class="error">{{ errors.get('password', '') }}</span><br><br>
+        <span id="password_error" class="error"></span><br>
     
         <label for="confirm_password">Jelszó megerősítése:</label>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <span class="error">{{ errors.get('confirm_password', '') }}</span><br><br>
-    
-        <button type="submit">Regisztráció</button>
+        <span id="confirm_password_error" class="error"></span><br>
+
+        <button type="submit" id="submitButton" disabled>Regisztráció</button>
     </form>
-
+    
     <script>
-        document.getElementById('last_name').addEventListener('input', function() {
-            const lastName = this.value;
-            const lastNameError = document.getElementById('last_name_error');
-            lastNameError.textContent = '';
+        document.getElementById('last_name').addEventListener('input', validateForm);
+        document.getElementById('first_name').addEventListener('input', validateForm);
+        document.getElementById('username').addEventListener('input', validateForm);
+        document.getElementById('email').addEventListener('input', validateForm);
+        document.getElementById('password').addEventListener('input', validateForm);
+        document.getElementById('confirm_password').addEventListener('input', validateForm);
 
-            if (lastName && lastName[0] !== lastName[0].toUpperCase()) {
-                lastNameError.textContent = 'A vezetéknév első betűje nagybetűvel kell kezdődjön!';
-                return;
-            }
+        function validateForm() {
+            let hasErrors = false;
 
-            const lastNameRegex = /^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+([ -]?[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$/;
-            if (!lastNameRegex.test(lastName) && lastName) {
-                lastNameError.textContent = 'A vezetéknév csak betűket, egy space-t vagy kötőjelet tartalmazhat, és az nem lehet az elején vagy végén!';
-            }
-        });
-
-        document.getElementById('first_name').addEventListener('input', function() {
-            const firstName = this.value;
-            const firstNameError = document.getElementById('first_name_error');
-            firstNameError.textContent = '';
-
-            if (firstName && firstName[0] !== firstName[0].toUpperCase()) {
-                firstNameError.textContent = 'A keresztnév első betűje nagybetűvel kell kezdődjön!';
-                return;
-            }
-
-            const firstNameRegex = /^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+( [A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$/;
-            if (!firstNameRegex.test(firstName)) {
-                firstNameError.textContent = 'A keresztnév csak betűket és középen space-t tartalmazhat!';
-            }
-        });
-
-        document.getElementById('username').addEventListener('input', function() {
-            const username = this.value;
-            const usernameError = document.getElementById('username_error');
-            usernameError.textContent = '';
-
-            if (username.length < 3) {
-                usernameError.textContent = 'A felhasználónév legalább 3 karakter hosszú kell legyen!';
-                return;
-            }
-
-            const usernameRegex = /^[A-Za-z0-9]+$/;
-            if (!usernameRegex.test(username)) {
-                usernameError.textContent = 'A felhasználónév csak betűkből és számokból állhat!';
-            }
-        });
-
-        document.getElementById('password').addEventListener('input', function() {
-            const password = this.value;
-            const passwordError = document.getElementById('password_error');
-            passwordError.textContent = '';
-
-            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*.])[A-Za-z0-9!@#$%^&*.]{8,}$/;
-            if (!passwordRegex.test(password)) {
-                passwordError.textContent = 'A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot és speciális karaktert!';
-            }
-        });
-
-        document.getElementById('confirm_password').addEventListener('input', function() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = this.value;
-            const confirmPasswordError = document.getElementById('confirm_password_error');
-            confirmPasswordError.textContent = '';
-
-            if (confirmPassword !== password) {
-                confirmPasswordError.textContent = 'A jelszó nem egyezik!';
-            }
-        });
-
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
             const lastName = document.getElementById('last_name').value;
-            const firstName = document.getElementById('first_name').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-
-            const lastNameRegex = /^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+([ -]?[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$/;
-            const firstNameRegex = /^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+( [A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$/;
-            const usernameRegex = /^[A-Za-z0-9]{3,}$/;
-            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*.])[A-Za-z0-9!@#$%^&*.]{8,}$/;
-
             const lastNameError = document.getElementById('last_name_error');
+            if (!/^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+([ -]?[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$/.test(lastName)) {
+                lastNameError.textContent = 'A vezetéknév csak betűket, egy space-t vagy kötőjelet tartalmazhat!';
+                hasErrors = true;
+            } else {
+                lastNameError.textContent = '';
+            }
+
+            const firstName = document.getElementById('first_name').value;
             const firstNameError = document.getElementById('first_name_error');
+            if (!/^[A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+( [A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+)*$/.test(firstName)) {
+                firstNameError.textContent = 'A keresztnév csak betűket és középen space-t tartalmazhat!';
+                hasErrors = true;
+            } else {
+                firstNameError.textContent = '';
+            }
+
+            const username = document.getElementById('username').value;
             const usernameError = document.getElementById('username_error');
-            const passwordError = document.getElementById('password_error');
-            const confirmPasswordError = document.getElementById('confirm_password_error');
-
-            if (lastName.trim() === '') {
-                lastNameError.textContent = 'A vezetéknév kitöltése kötelező!';
-                event.preventDefault();
-            }
-
-            if (firstName.trim() === '') {
-                firstNameError.textContent = 'A keresztnév kitöltése kötelező!';
-                event.preventDefault();
-            }
-
-            if (username.trim() === '' || username.length < 3 || !usernameRegex.test(username)) {
+            if (!/^[A-Za-z0-9]{3,}$/.test(username)) {
                 usernameError.textContent = 'A felhasználónév legalább 3 karakterből kell álljon és csak betűkből és számokból!';
-                event.preventDefault();
+                hasErrors = true;
+            } else {
+                usernameError.textContent = '';
             }
 
-            if (password.trim() === '' || !passwordRegex.test(password)) {
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email_error');
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailError.textContent = 'Érvényes email címet kell megadni!';
+                hasErrors = true;
+            } else {
+                emailError.textContent = '';
+            }
+
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('password_error');
+            if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*.])[A-Za-z0-9!@#$%^&*.]{8,}$/.test(password)) {
                 passwordError.textContent = 'A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot és speciális karaktert!';
-                event.preventDefault();
+                hasErrors = true;
+            } else {
+                passwordError.textContent = '';
             }
 
-            if (confirmPassword !== password) {
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const confirmPasswordError = document.getElementById('confirm_password_error');
+            if (password !== confirmPassword) {
                 confirmPasswordError.textContent = 'A jelszó és a megerősített jelszó nem egyezik!';
-                event.preventDefault();
+                hasErrors = true;
+            } else {
+                confirmPasswordError.textContent = '';
             }
-        });
+
+            document.getElementById('submitButton').disabled = hasErrors;
+        }
     </script>
 
 </body>
