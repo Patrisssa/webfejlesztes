@@ -11,6 +11,9 @@
     <div class="navbar">
         <div class="navbar-left">
             <a href="/" class="navbar-link">Könyvek</a>
+            {% if current_user.is_authenticated and current_user.is_admin %}
+                <a href="/admin" class="navbar-link">Admin</a>
+            {% endif %}
         </div>
         <div class="navbar-right">
             <a href="/logout" class="navbar-link logout-link">Kijelentkezés</a>
