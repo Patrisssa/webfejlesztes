@@ -13,11 +13,9 @@
 <body>
 
     <div class="navbar">
-        <!-- Bal oldali menü -->
         <div class="navbar-left">
             <a href="/" class="navbar-link">Könyvek</a>
         </div>
-        <!-- Jobb oldali menü -->
         <div class="navbar-right">
             <a href="/login" class="navbar-link">Bejelentkezés</a>
         </div>
@@ -53,11 +51,10 @@
     </form>
 
     <script>
-        // Vezetéknév validálása
         document.getElementById('last_name').addEventListener('input', function() {
             const lastName = this.value;
             const lastNameError = document.getElementById('last_name_error');
-            lastNameError.textContent = ''; // Reset error message
+            lastNameError.textContent = '';
 
             if (lastName && lastName[0] !== lastName[0].toUpperCase()) {
                 lastNameError.textContent = 'A vezetéknév első betűje nagybetűvel kell kezdődjön!';
@@ -70,11 +67,10 @@
             }
         });
 
-        // Keresztnév validálása
         document.getElementById('first_name').addEventListener('input', function() {
             const firstName = this.value;
             const firstNameError = document.getElementById('first_name_error');
-            firstNameError.textContent = ''; // Reset error message
+            firstNameError.textContent = '';
 
             if (firstName && firstName[0] !== firstName[0].toUpperCase()) {
                 firstNameError.textContent = 'A keresztnév első betűje nagybetűvel kell kezdődjön!';
@@ -87,11 +83,10 @@
             }
         });
 
-        // Felhasználónév validálása
         document.getElementById('username').addEventListener('input', function() {
             const username = this.value;
             const usernameError = document.getElementById('username_error');
-            usernameError.textContent = ''; // Reset error message
+            usernameError.textContent = '';
 
             if (username.length < 3) {
                 usernameError.textContent = 'A felhasználónév legalább 3 karakter hosszú kell legyen!';
@@ -104,11 +99,10 @@
             }
         });
 
-        // Jelszó validálása
         document.getElementById('password').addEventListener('input', function() {
             const password = this.value;
             const passwordError = document.getElementById('password_error');
-            passwordError.textContent = ''; // Reset error message
+            passwordError.textContent = '';
 
             const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*.])[A-Za-z0-9!@#$%^&*.]{8,}$/;
             if (!passwordRegex.test(password)) {
@@ -116,19 +110,17 @@
             }
         });
 
-        // Jelszó megerősítése
         document.getElementById('confirm_password').addEventListener('input', function() {
             const password = document.getElementById('password').value;
             const confirmPassword = this.value;
             const confirmPasswordError = document.getElementById('confirm_password_error');
-            confirmPasswordError.textContent = ''; // Reset error message
+            confirmPasswordError.textContent = '';
 
             if (confirmPassword !== password) {
                 confirmPasswordError.textContent = 'A jelszó nem egyezik!';
             }
         });
 
-        // Űrlap elküldése előtt a végső validálás
         document.getElementById('registerForm').addEventListener('submit', function(event) {
             const lastName = document.getElementById('last_name').value;
             const firstName = document.getElementById('first_name').value;
@@ -147,7 +139,6 @@
             const passwordError = document.getElementById('password_error');
             const confirmPasswordError = document.getElementById('confirm_password_error');
 
-            // Először ellenőrizzük a kötelező mezőket
             if (lastName.trim() === '') {
                 lastNameError.textContent = 'A vezetéknév kitöltése kötelező!';
                 event.preventDefault();

@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from models import db
 from models.users_model import User
 from controllers.home_controller import home_bp
@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:BendzsoMarshall02.@localhost/project_database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.secret_key = 'your_secret_key'  # Titkos kulcs a session kezeléshez
+app.secret_key = 'your_secret_key'
 db.init_app(app)
 
 login_manager = LoginManager()
@@ -32,15 +32,18 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         
         user = User.query.filter_by(username=username).first()
         
-        if user and user.check_password(password):  # Jelszó ellenőrzése
-            login_user(user)  # Bejelentkezés
-            return redirect(url_for('index'))  # Átirányítás a felhasználói dashboardra
+        if user and user.check_password(password):
+            login_user(user)
+            return redirect(url_for('index'))
 
         return 'Hibás felhasználónév vagy jelszó'
 
@@ -48,6 +51,9 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         last_name = request.form['last_name']
         first_name = request.form['first_name']
@@ -60,7 +66,6 @@ def register():
         if existing_user:
             return render_template('register.html', errors={'email': 'Ezzel az email címmel már létezik regisztráció!'})
 
-        # Hibák ellenőrzése
         errors = {}
 
         if len(last_name.strip()) == 0:
@@ -72,17 +77,14 @@ def register():
         if password != confirm_password:
             errors['confirm_password'] = 'A jelszó és a megerősített jelszó nem egyezik!'
 
-        # Ha van hiba, visszaadjuk a hibákat
         if errors:
             return render_template('register.html', errors=errors)
 
-        # Ellenőrizzük, hogy van-e már ilyen felhasználónév vagy email
         existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
         if existing_user:
             errors['existing'] = 'Ez a felhasználónév vagy email már létezik!'
             return render_template('register.html', errors=errors)
 
-        # Új felhasználó létrehozása
         new_user = User(
             last_name=last_name,
             first_name=first_name,
@@ -92,35 +94,54 @@ def register():
         )
         new_user.set_password(password)
 
-        # Felhasználó mentése az adatbázisba
         db.session.add(new_user)
         db.session.commit()
 
-        # Átirányítás a bejelentkezési oldalra
         return redirect(url_for('login'))
 
-    # GET kérés esetén a regisztrációs űrlap visszaadása
     return render_template('register.html', errors={})
-
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
+    flash('Sikeres kijelentkezés!', 'success')
     return redirect(url_for('index'))
-
 
 @app.route('/admin')
 @login_required
 def admin():
     if current_user.is_admin:
-        return render_template('admin_dashboard.html')
+        return render_template('admin.html')
     else:
         return 'Nincs admin jogosultságod'
 
+@app.route('/admin/users', methods=['GET'])
+@login_required
+def admin_users():
+    users = User.query.all()
+    return render_template('admin_users.html', users=users)
+
+@app.route('/admin/toggle_admin/<int:id>', methods=['POST', 'GET'])
+@login_required
+def toggle_admin(id):
+    user = User.query.get(id)
+    if not user:
+        flash('Felhasználó nem található!', 'error')
+        return redirect(url_for('admin_users'))
+
+    user.is_admin = not user.is_admin
+    db.session.commit()
+    flash(f"Az admin jog {user.username} számára módosítva lett!", 'success')
+    return redirect(url_for('admin_users'))
+
+@app.route('/profile')
+@login_required
+def profile():
+    user = current_user
+    return render_template('profile.html', user=user)
 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True, port=8000)
-

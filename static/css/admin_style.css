@@ -1,30 +1,27 @@
-/* Alap stílusok */
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    background-color: #f8f9fa; /* Világos szürke háttér */
-    color: #1b263b; /* Sötétkék szöveg */
+    background-color: #f8f9fa;
+    color: #1b263b;
     margin: 0;
     padding: 0;
-    padding-top: 60px; /* Fix navbar miatt */
+    padding-top: 60px;
 }
 
-/* Fejléc */
 h1 {
     text-align: center;
-    color: #1b263b; /* Sötétkék */
+    color: #1b263b;
     margin-top: 30px;
     font-size: 2.8em;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-/* Navigációs sáv */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1b263b; /* Sötétkék */
+    background-color: #1b263b;
     padding: 10px 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -34,7 +31,6 @@ h1 {
     z-index: 1000;
 }
 
-/* Bal oldali menü */
 .navbar-left,
 .navbar-right {
     display: flex;
@@ -42,32 +38,29 @@ h1 {
     padding-right: 30px;
 }
 
-
-/* Linkek a navigációs sávban */
 .navbar-link {
     text-decoration: none;
-    color: #ffffff; /* Fehér szöveg */
+    color: #ffffff;
     font-weight: bold;
     padding: 8px 16px;
     border-radius: 8px;
     transition: background-color 0.3s, transform 0.3s;
-    background-color: #41b883; /* Világos zöldeskék */
+    background-color: #41b883;
 }
 
 .navbar-link:hover {
-    background-color: #1b263b; /* Sötétkék */
+    background-color: #1b263b;
     transform: scale(1.1);
     color: #ffffff;
 }
 
-/* Admin felület */
 .admin-body {
     padding-top: 80px;
 }
 
 .admin-title {
     text-align: center;
-    color: #1b263b; /* Sötétkék */
+    color: #1b263b;
     font-size: 2.8em;
     font-weight: bold;
     margin: 40px 0;
@@ -75,13 +68,12 @@ h1 {
 
 .admin-subtitle {
     text-align: center;
-    color: #41b883; /* Világos zöldeskék */
+    color: #41b883;
     font-size: 1.8em;
     margin-bottom: 30px;
     padding-top: 20px;
 }
 
-/* Admin form */
 .admin-form {
     display: flex;
     flex-direction: column;
@@ -114,7 +106,7 @@ h1 {
 }
 
 .admin-submit {
-    background-color: #41b883; /* Világos zöldeskék */
+    background-color: #41b883;
     color: white;
     padding: 12px 24px;
     border: none;
@@ -125,11 +117,10 @@ h1 {
 }
 
 .admin-submit:hover {
-    background-color: #1b263b; /* Sötétkék */
+    background-color: #1b263b;
     transform: translateY(-3px);
 }
 
-/* Könyvek listája */
 .admin-book-list {
     list-style: none;
     padding: 0;
@@ -166,7 +157,6 @@ h1 {
     margin-bottom: 5px;
 }
 
-/* Linkek a könyvekhez */
 .admin-edit-link,
 .admin-delete-link {
     color: #0d7244;

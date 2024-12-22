@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" href="static/css/profile_style.css">
+</head>
+<body class="admin-body">
+
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-link">Könyvek</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/logout" class="navbar-link logout-link">Kijelentkezés</a>
+        </div>
+    </div>
+
+    <h1 class="admin-title">Profil</h1>
+
+    <div class="profile-container">
+        <div class="profile-box">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <img src="{{ url_for('static', filename='images/profilepic.jpg') }}" alt="Profil Kép">
+                </div>
+                <div class="profile-info">
+                    <h2 class="admin-subtitle">Személyes adatok</h2>
+                    <p><strong>Vezetéknév:</strong> {{ user.last_name }}</p>
+                    <p><strong>Keresztnév:</strong> {{ user.first_name }}</p>
+                    <p><strong>Felhasználónév:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

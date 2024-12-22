@@ -16,7 +16,6 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# Admin Dashboard (könyvek kezelése)
 @admin_bp.route('/admin', methods=['GET', 'POST'])
 @admin_required
 def admin_dashboard():
@@ -38,7 +37,6 @@ def admin_dashboard():
     books = Book.query.all()
     return render_template('admin.html', books=books)
 
-# Könyv szerkesztése
 @admin_bp.route('/admin/edit/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def edit_book(id):
@@ -53,7 +51,6 @@ def edit_book(id):
 
     return render_template('edit.html', book=book)
 
-# Könyv törlése
 @admin_bp.route('/admin/delete/<int:id>', methods=['GET'])
 @admin_required
 def delete_book(id):
@@ -63,14 +60,12 @@ def delete_book(id):
         db.session.commit()
     return redirect(url_for('admin.admin_dashboard'))
 
-# Felhasználók kezelése
 @admin_bp.route('/admin/users', methods=['GET'])
 @admin_required
 def users_management():
-    users = User.query.all()  # Lekérjük az összes felhasználót
+    users = User.query.all()
     return render_template('users.html', users=users)
 
-# Felhasználó törlése
 @admin_bp.route('/admin/delete_user/<int:id>', methods=['GET'])
 @admin_required
 def delete_user(id):
