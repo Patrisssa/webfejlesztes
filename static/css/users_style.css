@@ -49,19 +49,11 @@ h1 {
     font-weight: bold;
 }
 
-ul li a {
-    display: inline-block;
-    margin: 5px 0;
-    text-decoration: none;
-    color: #ffffff;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background-color: #4a90e2;
-    transition: background-color 0.3s;
-}
-
-ul li a:hover {
-    background-color: #5c3c92;
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 800px;
 }
 
 li {
@@ -74,6 +66,7 @@ li {
     justify-content: space-between;
     align-items: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    gap: 20px;
 }
 
 li:hover {
@@ -81,23 +74,44 @@ li:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-li span {
+li .user-info {
+    flex: 1;
+    min-width: 300px; /* Állítsd be a kívánt szélességet */
+    max-width: 400px;
+}
+
+li .user-info span {
+    display: block;
     color: #1b263b;
     font-size: 1.1em;
     font-weight: 500;
+    margin-bottom: 5px;
 }
 
-li a {
+li .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+li .actions a {
     color: #e63946;
     text-decoration: none;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 8px;
     background-color: rgba(230, 57, 70, 0.1);
     transition: background-color 0.3s, color 0.3s;
+    text-align: center;
 }
 
-li a:hover {
+li .actions a:hover {
     background-color: #e63946;
     color: #ffffff;
+}
+
+li .actions a.disabled {
+    pointer-events: none;
+    background-color: #cccccc;
+    color: #666666;
 }

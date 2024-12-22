@@ -22,17 +22,25 @@
     <ul>
         {% for user in users %}
         <li>
-            <strong>Vezetéknév:</strong> {{ user.last_name }} <br>
-            <strong>Keresztnév:</strong> {{ user.first_name }} <br>
-            <strong>Felhasználónév:</strong> {{ user.username }} <br>
-            <strong>Email:</strong> {{ user.email }} <br>
-            <strong>Admin jog:</strong> {{ "Igen" if user.is_admin else "Nem" }} <br>
-            <a href="{{ url_for('admin.delete_user', id=user.id) }}" 
-               onclick="return confirm('Biztosan törölni szeretnéd?')">Törlés</a>
-            <a href="{{ url_for('toggle_admin', id=user.id) }}" 
-               onclick="return confirm('Biztosan módosítani szeretnéd az admin jogot?')">
-               {{ "Admin jog visszavonása" if user.is_admin else "Admin jog adása" }}
-            </a>
+            <div class="user-info">
+                <span><strong>Vezetéknév:</strong> {{ user.last_name }}</span>
+                <span><strong>Keresztnév:</strong> {{ user.first_name }}</span>
+                <span><strong>Felhasználónév:</strong> {{ user.username }}</span>
+                <span><strong>Email:</strong> {{ user.email }}</span>
+                <span><strong>Admin jog:</strong> {{ "Igen" if user.is_admin else "Nem" }}</span>
+            </div>
+            <div class="actions">
+                {% if user.is_protected != 1 and user.id != current_user.id %}
+                    {% if not user.is_admin %}
+                        <a href="{{ url_for('admin.delete_user', id=user.id) }}" 
+                           onclick="return confirm('Biztosan törölni szeretnéd?')">Törlés</a>
+                    {% endif %}
+                    <a href="{{ url_for('toggle_admin', id=user.id) }}" 
+                       onclick="return confirm('Biztosan módosítani szeretnéd az admin jogot?')">
+                       {{ "Admin jog visszavonása" if user.is_admin else "Admin jog adása" }}
+                    </a>
+                {% endif %}
+            </div>
         </li>
         {% endfor %}
     </ul>
