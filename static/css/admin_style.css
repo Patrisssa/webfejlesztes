@@ -2,62 +2,83 @@
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    background-color: #f4f8fb; /* Világoskék háttér */
-    color: #333;
+    background-color: #f8f9fa; /* Világos szürke háttér */
+    color: #1b263b; /* Sötétkék szöveg */
     margin: 0;
     padding: 0;
-    padding-top: 60px; /* Mivel a navbar fix, így a tartalom ne takarja */
+    padding-top: 60px; /* Fix navbar miatt */
+}
+
+/* Fejléc */
+h1 {
+    text-align: center;
+    color: #1b263b; /* Sötétkék */
+    margin-top: 30px;
+    font-size: 2.8em;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* Navigációs sáv */
 .navbar {
-    background-color: #4a90e2; /* Kék */
-    height: 50px;
     display: flex;
-    justify-content: space-between; /* Bal és jobb oldali elemeket széthúzza */
+    justify-content: space-between;
     align-items: center;
+    background-color: #1b263b; /* Sötétkék */
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 0 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Lágy árnyék */
 }
 
-/* Linkek stílusa */
+/* Bal oldali menü */
+.navbar-left,
+.navbar-right {
+    display: flex;
+    gap: 20px;
+    padding-right: 30px;
+}
+
+
+/* Linkek a navigációs sávban */
 .navbar-link {
-    color: white;
-    font-size: 1.2em;
     text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s;
+    color: #ffffff; /* Fehér szöveg */
     font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+    background-color: #41b883; /* Világos zöldeskék */
 }
 
 .navbar-link:hover {
-    background-color: #5c3c92; /* Lila hover szín */
+    background-color: #1b263b; /* Sötétkék */
+    transform: scale(1.1);
+    color: #ffffff;
 }
 
 /* Admin felület */
 .admin-body {
-    padding-top: 70px; /* Térköz a navbar alatt */
+    padding-top: 80px;
 }
 
 .admin-title {
     text-align: center;
-    color: #5c3c92; /* Lila */
-    font-size: 2.5em;
-    margin-top: 40px;
+    color: #1b263b; /* Sötétkék */
+    font-size: 2.8em;
     font-weight: bold;
+    margin: 40px 0;
 }
 
 .admin-subtitle {
-    color: #4a90e2; /* Kék */
-    font-size: 1.8em;
-    margin-bottom: 20px;
     text-align: center;
+    color: #41b883; /* Világos zöldeskék */
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    padding-top: 20px;
 }
 
 /* Admin form */
@@ -72,23 +93,30 @@ body {
 .admin-label {
     font-size: 1.2em;
     font-weight: bold;
-    color: #5c3c92; /* Lila */
+    color: #1b263b;
 }
 
 .admin-input,
 .admin-textarea {
-    padding: 10px;
+    padding: 12px;
     font-size: 1em;
-    width: 300px;
-    border: 1px solid #ddd;
+    width: 320px;
+    border: 2px solid #41b883;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-input:focus,
+.admin-textarea:focus {
+    border-color: #1b263b;
+    box-shadow: 0 0 10px rgba(27, 38, 59, 0.2);
 }
 
 .admin-submit {
-    background-color: #4a90e2; /* Kék */
+    background-color: #41b883; /* Világos zöldeskék */
     color: white;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
     font-size: 1.2em;
@@ -97,8 +125,8 @@ body {
 }
 
 .admin-submit:hover {
-    background-color: #5c3c92; /* Lila */
-    transform: translateY(-3px); /* Finom mozgás */
+    background-color: #1b263b; /* Sötétkék */
+    transform: translateY(-3px);
 }
 
 /* Könyvek listája */
@@ -106,15 +134,15 @@ body {
     list-style: none;
     padding: 0;
     max-width: 800px;
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 .admin-book-item {
     background-color: white;
-    padding: 15px;
+    padding: 20px;
     margin: 10px 0;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -125,31 +153,32 @@ body {
 }
 
 .admin-book-title {
-    font-size: 1.5em;
+    font-size: 1.6em;
     font-weight: bold;
-    color: #5c3c92; /* Lila */
+    color: #1b263b;
     margin-bottom: 5px;
 }
 
 .admin-book-author,
 .admin-book-date {
     font-size: 1.1em;
-    color: #4a90e2; /* Kék */
+    color: #41b883;
     margin-bottom: 5px;
 }
 
 /* Linkek a könyvekhez */
 .admin-edit-link,
 .admin-delete-link {
-    color: #4a90e2; /* Kék */
+    color: #0d7244;
     margin-left: 10px;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.2s;
 }
 
 .admin-edit-link:hover,
 .admin-delete-link:hover {
-    color: #5c3c92; /* Lila */
+    color: #1b263b;
+    transform: scale(1.1);
     text-decoration: underline;
 }

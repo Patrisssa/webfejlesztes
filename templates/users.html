@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Felhasználók kezelése</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/users_style.css') }}">
 </head>
 <body>
 
@@ -13,17 +14,28 @@
         </div>
         <div class="navbar-right">
             <a href="/admin" class="navbar-link">Könyvek kezelése</a>
-            <a href="/logout" class="navbar-link">Kijelentkezés</a>
+            <a href="/logout" class="navbar-link logout-link">Kijelentkezés</a>
         </div>
     </div>
 
     <h1>Felhasználók kezelése</h1>
     <ul>
         {% for user in users %}
-        <li>{{ user.username }} - {{ user.email }} 
-            <a href="{{ url_for('admin.delete_user', id=user.id) }}" onclick="return confirm('Biztosan törölni szeretnéd?')">Törlés</a>
+        <li>
+            <strong>Vezetéknév:</strong> {{ user.last_name }} <br>
+            <strong>Keresztnév:</strong> {{ user.first_name }} <br>
+            <strong>Felhasználónév:</strong> {{ user.username }} <br>
+            <strong>Email:</strong> {{ user.email }} <br>
+            <strong>Admin jog:</strong> {{ "Igen" if user.is_admin else "Nem" }} <br>
+            <a href="{{ url_for('admin.delete_user', id=user.id) }}" 
+               onclick="return confirm('Biztosan törölni szeretnéd?')">Törlés</a>
+            <a href="{{ url_for('toggle_admin', id=user.id) }}" 
+               onclick="return confirm('Biztosan módosítani szeretnéd az admin jogot?')">
+               {{ "Admin jog visszavonása" if user.is_admin else "Admin jog adása" }}
+            </a>
         </li>
         {% endfor %}
     </ul>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 </html>
